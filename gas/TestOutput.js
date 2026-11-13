@@ -10,6 +10,15 @@ const TEST_OUTPUT_HEADERS = [
   '本文の字数（見出しを除く）', '本文（見出し付き）', '本文（WordPress に送る HTML）',
 ];
 
+// このファイルを追加するだけでメニューが出るよう、onOpen もここに置く
+// スプレッドシートを開いたときに、上のメニューに「記事作成ツール」を出す
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu('記事作成ツール')
+    .addItem('選んだ行で記事をテスト作成（WordPress には送らない）', 'testArticleForActiveRow')
+    .addToUi();
+}
+
 // メニュー「記事作成ツール > 選んだ行で記事をテスト作成」から呼ばれる
 function testArticleForActiveRow() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();

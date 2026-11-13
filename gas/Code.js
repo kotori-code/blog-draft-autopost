@@ -1,11 +1,3 @@
-// スプレッドシートを開いたときに、上のメニューに「記事作成ツール」を出す
-function onOpen() {
-  SpreadsheetApp.getUi()
-    .createMenu('記事作成ツール')
-    .addItem('選んだ行で記事をテスト作成（WordPress には送らない）', 'testArticleForActiveRow')
-    .addToUi();
-}
-
 // シートが編集されたときの受け口（インストール型トリガーから呼ばれる。setupTriggers で登録）
 // 名前を onEdit にするとシンプルトリガーとしても動いて二重に実行されるので、別の名前にしている
 
