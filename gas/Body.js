@@ -18,9 +18,9 @@ const ARTICLE_SCHEMA = {
     },
     summaryHeading: { type: 'string' },
     summary: { type: 'string' },
-    excerpt: { type: 'string' },
+    metaDescription: { type: 'string' },
   },
-  required: ['intro', 'sections', 'summaryHeading', 'summary', 'excerpt'],
+  required: ['intro', 'sections', 'summaryHeading', 'summary', 'metaDescription'],
   additionalProperties: false,
 };
 
@@ -32,7 +32,7 @@ const ARTICLE_FORMAT_NOTE = [
   '- sections: 見出しをちょうど ' + SECTION_COUNT + ' つ。heading は見出し、body はその本文',
   '- summaryHeading: まとめの見出し。「まとめ：」で始め、記事の主張を短く入れる（例: まとめ：〇〇が悪いのではなく、△△の問題）',
   '- summary: まとめの文章（見出しは summaryHeading に書き、ここには入れない）',
-  '- excerpt: 検索結果に出る説明文（120 字前後）',
+  '- metaDescription: このページの説明文（' + META_DESCRIPTION_MAX + ' 字以内、検索結果に表示される文）。キーワードを入れ、読むと何が分かるかを伝える',
   '- 段落と段落の間は空行を入れる。箇条書きは行頭に「- 」を付ける',
   '- HTML のタグや Markdown の記号（# や **）は使わない',
 ].join('\n');
@@ -64,13 +64,21 @@ function generateBodyForRow_(sheet, row) {
     const result = postDraftToWordPress_({
       title: title,
       content: articleToHtml_(article),
-      excerpt: article.excerpt,
+      excerpt: article.metaDescription, // WordPress の「抜粋」に入れる
     });
 
+    ensureHeader_(sheet, 'metaDescription');
     cell('title').setValue(title);
     cell('url').setValue(result.editUrl);
+    cell('metaDescription').setValue(article.metaDescription);
     cell('createdAt').setValue(new Date());
     cell('status').setValue(STATUS.CREATED);
+
+    // 下書きは保存できているので、字数オーバーはエラーにせず注意として知らせる
+    const length = Array.from(article.metaDescription).length;
+    if (length > META_DESCRIPTION_MAX) {
+      cell('error').setValue('注意: 説明文が ' + length + ' 字です。' + META_DESCRIPTION_MAX + ' 字以内に直してから使ってください');
+    }
   } catch (err) {
     console.error('[Body] ' + row + ' 行目: ' + err.message);
     cell('status').setValue(STATUS.ERROR);
@@ -78,6 +86,20 @@ function generateBodyForRow_(sheet, row) {
   } finally {
     cell('makeBody').setValue(false);
   }
+}
+
+// 後から足した列の見出しが無ければ書く（setupSheets の前に作ったシートでも使えるように）
+function ensureHeader_(sheet, key) {
+  const header = sheet.getRange(1, articleCol_(key));
+  if (header.getValue() !== '') return;
+  const col = ARTICLE_COLUMNS[articleCol_(key) - 1];
+  header.setValue(col.header)
+    .setBackground(col.input ? COLORS.inputHeader : COLORS.autoHeader)
+    .setFontColor(COLORS.headerText)
+    .setFontWeight('bold')
+    .setWrap(true);
+  sheet.setColumnWidth(articleCol_(key), col.width);
+  sheet.getRange(2, articleCol_(key), ARTICLE_ROWS, 1).setWrap(true).setVerticalAlignment('top');
 }
 
 // 「タイトル案」の中から、「採用する案」の番号のタイトルを取り出す
@@ -155,6 +177,6 @@ function mockArticle_(title, keyword) {
     })),
     summaryHeading: 'まとめ：【テスト】まとめの見出し',
     summary: '【テスト】「' + title + '」のまとめです。',
-    excerpt: '【テスト】' + keyword + 'についての説明文です。',
+    metaDescription: '【テスト】' + keyword + 'について、担当者が見落としがちなポイントを現場目線で整理します。',
   };
 }

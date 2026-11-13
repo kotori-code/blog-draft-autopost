@@ -37,7 +37,7 @@ async function main() {
   // 送る記事（テスト用の記事を、本番と同じ変換で HTML にする）
   const title = '勤怠管理 クラウド 比較｜失敗しない選び方 3 つのポイント';
   const article = gas.mockArticle_(title, '勤怠管理 クラウド 比較');
-  const draft = { title, content: gas.articleToHtml_(article), excerpt: article.excerpt };
+  const draft = { title, content: gas.articleToHtml_(article), excerpt: article.metaDescription };
 
   const cases = [
     { name: '正しい設定', conf: { baseUrl: base, username: 'blog-writer', appPassword: password }, expect: 'ok' },

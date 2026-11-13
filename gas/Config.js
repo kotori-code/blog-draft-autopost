@@ -41,6 +41,7 @@ const ARTICLE_COLUMNS = [
   { key: 'title', header: 'タイトル', width: 260, wrap: true },
   { key: 'url', header: 'WordPress URL', width: 220 },
   { key: 'error', header: 'エラー内容', width: 240, wrap: true },
+  { key: 'metaDescription', header: '説明文（120 字以内）', width: 300, wrap: true },
 ];
 
 // 列番号（1 始まり）を返す。例: articleCol_('keyword') → 3
@@ -69,6 +70,7 @@ const OPENAI_CHAT_ENDPOINT = 'https://api.openai.com/v1/chat/completions';
 const DEFAULT_OPENAI_MODEL = 'gpt-4.1-mini'; // スクリプトプロパティ OPENAI_MODEL で変更できる
 const TITLE_COUNT = 5;
 const SECTION_COUNT = 3; // 見出し（H2）の数
+const META_DESCRIPTION_MAX = 120; // 説明文（メタディスクリプション）の上限の字数
 
 // WordPress
 const WP_POSTS_PATH = '/wp-json/wp/v2/posts';
