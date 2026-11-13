@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+  html,body{margin:0;padding:0;background:#fff;}
+  svg{display:block;font-family:"Yu Gothic UI","Yu Gothic","Meiryo",sans-serif;}
+  .h{font-size:22px;font-weight:700;fill:#fff;}
+  .b{font-size:18px;fill:#333;}
+  .l{font-size:17px;fill:#222;font-weight:600;}
+  .s{font-size:15px;fill:#666;}
+  .t{font-size:20px;font-weight:700;fill:#222;}
+  .line{stroke:#555;stroke-width:3;fill:none;marker-end:url(#arw);}
+  .manual{stroke:#F29D38;stroke-dasharray:10 7;marker-end:url(#arwO);}
+</style></head>
+<body>
+<svg width="1800" height="1130" viewBox="0 0 1800 1130" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#555"/>
+    </marker>
+    <marker id="arwO" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#F29D38"/>
+    </marker>
+    <filter id="sh" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect width="1800" height="1130" fill="#F7F9FB"/>
+  <text x="40" y="70" style="font-size:34px;font-weight:700;fill:#222">ブログ記事 下書き自動作成システム 構成図</text>
+  <text x="40" y="108" class="s" style="font-size:18px">スプレッドシートにキーワードを入れる → AI が下書きを作成 → WordPress に「下書き」として保存（公開は担当者が確認してから）</text>
+
+  <!-- マーケ担当 -->
+  <g filter="url(#sh)">
+    <rect x="40" y="170" width="240" height="270" rx="14" fill="#fff" stroke="#F29D38" stroke-width="2"/>
+    <path d="M40,184 a14,14 0 0 1 14,-14 h212 a14,14 0 0 1 14,14 v40 h-240 z" fill="#F29D38"/>
+  </g>
+  <text x="160" y="206" class="h" text-anchor="middle">Web マーケ担当</text>
+  <text x="160" y="285" style="font-size:54px" text-anchor="middle">💻</text>
+  <text x="160" y="340" class="b" text-anchor="middle">キーワードを入れて</text>
+  <text x="160" y="366" class="b" text-anchor="middle">チェックを付けるだけ</text>
+  <text x="160" y="405" class="s" text-anchor="middle">週 3 本・あとは確認だけ</text>
+
+  <!-- スプレッドシート -->
+  <g filter="url(#sh)">
+    <rect x="420" y="170" width="340" height="270" rx="14" fill="#fff" stroke="#0F9D58" stroke-width="2"/>
+    <path d="M420,184 a14,14 0 0 1 14,-14 h312 a14,14 0 0 1 14,14 v40 h-340 z" fill="#0F9D58"/>
+  </g>
+  <text x="590" y="206" class="h" text-anchor="middle">Google スプレッドシート</text>
+  <text x="445" y="258" class="b">・「記事作成」シート</text>
+  <text x="465" y="282" class="s">キーワード・タイトル案・状態・下書きURL</text>
+  <text x="445" y="320" class="b">・「共通設定」シート</text>
+  <text x="465" y="344" class="s">文字数・トーン・NG 表現・理想記事</text>
+  <text x="445" y="382" class="b">・「個別設定」シート</text>
+  <text x="465" y="406" class="s">タイトル用・本文用の指示文</text>
+
+  <!-- GAS -->
+  <g filter="url(#sh)">
+    <rect x="900" y="170" width="340" height="270" rx="14" fill="#fff" stroke="#4285F4" stroke-width="2"/>
+    <path d="M900,184 a14,14 0 0 1 14,-14 h312 a14,14 0 0 1 14,14 v40 h-340 z" fill="#4285F4"/>
+  </g>
+  <text x="1070" y="206" class="h" text-anchor="middle">Google Apps Script</text>
+  <text x="925" y="264" class="b">・チェックを付けると動く</text>
+  <text x="925" y="296" class="b">・タイトル 5 案 → 本文の 2 段階</text>
+  <text x="925" y="328" class="b">・1 回に 1 記事ずつ処理</text>
+  <text x="925" y="360" class="b">・指示文（プロンプト）を作成</text>
+  <text x="925" y="392" class="b">・失敗したらシートに記録</text>
+
+  <!-- OpenAI API -->
+  <g filter="url(#sh)">
+    <rect x="1380" y="170" width="380" height="270" rx="14" fill="#fff" stroke="#4A4F57" stroke-width="2"/>
+    <path d="M1380,184 a14,14 0 0 1 14,-14 h352 a14,14 0 0 1 14,14 v40 h-380 z" fill="#4A4F57"/>
+  </g>
+  <text x="1570" y="206" class="h" text-anchor="middle">OpenAI API（ChatGPT）</text>
+  <text x="1405" y="264" class="b">・ChatGPT と同じ GPT モデル</text>
+  <text x="1405" y="296" class="b">・使った分だけの従量課金</text>
+  <text x="1425" y="322" class="s">（ChatGPT の月額プランとは別の契約）</text>
+  <text x="1405" y="360" class="b">・出力：タイトル 5 案、導入／</text>
+  <text x="1405" y="388" class="b">　H2×3／まとめ／説明文</text>
+
+  <!-- WordPress -->
+  <g filter="url(#sh)">
+    <rect x="900" y="600" width="340" height="250" rx="14" fill="#fff" stroke="#21759B" stroke-width="2"/>
+    <path d="M900,614 a14,14 0 0 1 14,-14 h312 a14,14 0 0 1 14,14 v40 h-340 z" fill="#21759B"/>
+  </g>
+  <text x="1070" y="636" class="h" text-anchor="middle">WordPress</text>
+  <text x="925" y="694" class="b">・REST API で受け取る</text>
+  <text x="925" y="726" class="b">・「下書き」として保存</text>
+  <text x="925" y="758" class="b">・自動では公開しない</text>
+  <text x="925" y="790" class="b">・投稿用の専用ユーザー</text>
+  <text x="945" y="816" class="s">（アプリケーションパスワードで認証）</text>
+
+  <!-- 公開ブログ -->
+  <g filter="url(#sh)">
+    <rect x="1380" y="600" width="380" height="250" rx="14" fill="#fff" stroke="#6B7785" stroke-width="2"/>
+    <path d="M1380,614 a14,14 0 0 1 14,-14 h352 a14,14 0 0 1 14,14 v40 h-380 z" fill="#6B7785"/>
+  </g>
+  <text x="1570" y="636" class="h" text-anchor="middle">ブログ（公開）</text>
+  <text x="1405" y="694" class="b">・example-saas.co.jp/blog/</text>
+  <text x="1405" y="726" class="b">・読者：中小企業の経営者・</text>
+  <text x="1405" y="752" class="b">　IT 担当者</text>
+  <text x="1405" y="790" class="b">・2,000〜3,000 字／週 3 本</text>
+
+  <!-- ① 担当 → シート -->
+  <path class="line" d="M282,260 H416"/>
+  <text x="349" y="240" class="l" text-anchor="middle">① 入力</text>
+  <text x="349" y="285" class="s" text-anchor="middle">キーワード・チェック</text>
+
+  <!-- ② シート → GAS -->
+  <path class="line" d="M762,260 H896"/>
+  <text x="829" y="240" class="l" text-anchor="middle">② 読み取り</text>
+  <text x="829" y="285" class="s" text-anchor="middle">チェックした行</text>
+  <!-- ⑥ GAS → シート -->
+  <path class="line" d="M898,370 H764"/>
+  <text x="831" y="350" class="l" text-anchor="middle">⑥ 書き戻し</text>
+  <text x="831" y="395" class="s" text-anchor="middle">状態・下書きURL</text>
+
+  <!-- ③ GAS → OpenAI -->
+  <path class="line" d="M1242,260 H1376"/>
+  <text x="1309" y="240" class="l" text-anchor="middle">③ 指示文</text>
+  <text x="1309" y="285" class="s" text-anchor="middle">プロンプト</text>
+  <!-- ④ OpenAI → GAS -->
+  <path class="line" d="M1378,370 H1244"/>
+  <text x="1311" y="350" class="l" text-anchor="middle">④ 記事本文</text>
+  <text x="1311" y="395" class="s" text-anchor="middle">決まった形式</text>
+
+  <!-- ⑤ GAS → WordPress -->
+  <path class="line" d="M1070,442 V596"/>
+  <text x="1088" y="510" class="l">⑤ 下書き保存</text>
+  <text x="1088" y="535" class="s">REST API（status = draft）</text>
+
+  <!-- ⑦ 担当 → WordPress（手作業） -->
+  <path class="line manual" d="M160,442 V725 H896"/>
+  <text x="530" y="700" class="l" text-anchor="middle" style="fill:#C46F0C">⑦ 下書きを確認・画像を設定・公開前チェック</text>
+  <text x="530" y="755" class="s" text-anchor="middle">事実関係・自社サービスの記述・他サイトとの類似をチェック</text>
+
+  <!-- ⑧ WordPress → ブログ（手作業） -->
+  <path class="line manual" d="M1242,725 H1376"/>
+  <text x="1309" y="705" class="l" text-anchor="middle" style="fill:#C46F0C">⑧ 公開</text>
+  <text x="1309" y="752" class="s" text-anchor="middle">担当者が押す</text>
+
+  <!-- 凡例 -->
+  <line x1="200" y1="820" x2="250" y2="820" style="stroke:#555;stroke-width:3"/>
+  <text x="260" y="826" class="s">自動で動く処理</text>
+  <line x1="420" y1="820" x2="470" y2="820" style="stroke:#F29D38;stroke-width:3;stroke-dasharray:10 7"/>
+  <text x="480" y="826" class="s">担当者の手作業</text>
+
+  <!-- 下段：ポイント -->
+  <g>
+    <rect x="40" y="890" width="560" height="200" rx="14" fill="#fff" stroke="#D5DBE1" stroke-width="2"/>
+    <text x="65" y="930" class="t">月額費用の見込み</text>
+    <text x="65" y="968" class="b">・Apps Script・スプレッドシート：<tspan style="font-weight:700;fill:#06A048">0 円</tspan></text>
+    <text x="65" y="1000" class="b">・OpenAI API：<tspan style="font-weight:700;fill:#C46F0C">従量課金</tspan>（週 3 本なら少額）</text>
+    <text x="85" y="1026" class="s">モデルで単価が変わるため、見積時に試算して提示</text>
+    <text x="65" y="1062" class="b">・WordPress：今のサーバーのまま（追加なし）</text>
+  </g>
+  <g>
+    <rect x="620" y="890" width="560" height="200" rx="14" fill="#fff" stroke="#D5DBE1" stroke-width="2"/>
+    <text x="645" y="930" class="t">安全のための決めごと</text>
+    <text x="645" y="968" class="b">・API キー類はスクリプトプロパティに保存</text>
+    <text x="665" y="994" class="s">シート・コードには書かない</text>
+    <text x="645" y="1030" class="b">・管理者キーは使わず、権限を絞った専用ユーザー</text>
+    <text x="645" y="1066" class="b">・自動では公開しない（必ず人の確認を通す）</text>
+  </g>
+  <g>
+    <rect x="1200" y="890" width="560" height="200" rx="14" fill="#fff" stroke="#D5DBE1" stroke-width="2"/>
+    <text x="1225" y="930" class="t">品質の担保（コピペチェックの代わり）</text>
+    <text x="1225" y="968" class="b">・理想記事の文体・構成を手本として指示</text>
+    <text x="1225" y="1000" class="b">・自社視点・独自の切り口を必ず入れるよう指示</text>
+    <text x="1225" y="1032" class="b">・他サイトの文章の転載・長い引用を禁止</text>
+    <text x="1225" y="1064" class="b">・公開前に担当者が確認（⑦）</text>
+  </g>
+</svg>
+</body></html>
