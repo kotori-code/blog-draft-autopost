@@ -17,7 +17,6 @@ function isTestOutputEnabled_() {
 // 「本文を作成」から呼ばれる。書き出し先が設定されていなければ何もしない
 function exportArticle_(keyword, title, article, wpUrl) {
   if (!isTestOutputEnabled_()) return;
-  const bodyOnly = [article.intro].concat(article.sections.map((s) => s.body), [article.summary]).join('');
   writeTestOutput_({
     model: isOpenAiMock_()
       ? 'テスト用（OPENAI_MOCK）'
@@ -26,7 +25,7 @@ function exportArticle_(keyword, title, article, wpUrl) {
     title: title,
     metaDescription: article.metaDescription,
     metaLength: Array.from(article.metaDescription).length,
-    bodyLength: Array.from(bodyOnly.replace(/\s/g, '')).length,
+    bodyLength: articleBodyLength_(article),
     bodyText: articleToText_(article),
     bodyHtml: articleToHtml_(article),
     wpUrl: wpUrl,

@@ -25,7 +25,16 @@ const ARTICLE_SCHEMA = {
 };
 
 // 返事の形はプログラム側で決める（「個別設定」の指示文の後ろに付け足す）
+const ARTICLE_MIN_LENGTH = 1800; // 本文（見出しを除く）がこれより短ければ注意を出す
+
 const ARTICLE_FORMAT_NOTE = [
+  '',
+  '（書くときに必ず守ること）',
+  '- 長さ: intro は 300 字前後、sections の body はそれぞれ 600〜800 字、summary は 300 字前後。手本の記事は短いが、長さはまねない',
+  '- 手本の記事からまねるのは文体と組み立て方だけ。論点・例・見出しの中身は手本と変え、キーワードとタイトルに合わせて考える',
+  '- 作り話をしない。実在しない会社・人・数字・調査結果を事実として書かない（「ある会社では〜した」「〜というケースもあります」なども不可）。例を出すときは「例えば〜の場合」と仮定の形にする',
+  '- タイトルで約束した内容（例: 「選び方」「費用」「比較」など）は、必ずどれかの見出しで扱う',
+  '- キーワード・サブキーワードを不自然に繰り返さない。同じ言葉が続くときは言い換える',
   '',
   '（返事の形式）',
   '- intro: 導入の文章',
@@ -76,6 +85,10 @@ function generateBodyForRow_(sheet, row) {
 
     // 下書きは保存できているので、ここから先の問題はエラーにせず注意として知らせる
     const notes = [];
+    const bodyLength = articleBodyLength_(article);
+    if (!isOpenAiMock_() && bodyLength < ARTICLE_MIN_LENGTH) { // テスト用の文は短いので数えない
+      notes.push('注意: 本文が ' + bodyLength + ' 字（見出しを除く）で、短めです。内容を確認し、必要なら足してください');
+    }
     const length = Array.from(article.metaDescription).length;
     if (length > META_DESCRIPTION_MAX) {
       notes.push('注意: 説明文が ' + length + ' 字です。' + META_DESCRIPTION_MAX + ' 字以内に直してから使ってください');
@@ -137,6 +150,12 @@ function requestArticle_(title, keyword, subKeyword, memo) {
     throw new Error('見出しが ' + count + ' つで返ってきました（' + SECTION_COUNT + ' つの予定）。もう一度チェックを入れてください');
   }
   return article;
+}
+
+// 本文の字数（見出しと空白を除く）
+function articleBodyLength_(article) {
+  const text = [article.intro].concat(article.sections.map((s) => s.body), [article.summary]).join('');
+  return Array.from(text.replace(/\s/g, '')).length;
 }
 
 // 記事を WordPress の本文（HTML）にする: 導入 → 見出し×3 → まとめ
