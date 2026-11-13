@@ -16,10 +16,11 @@ const ARTICLE_SCHEMA = {
         additionalProperties: false,
       },
     },
+    summaryHeading: { type: 'string' },
     summary: { type: 'string' },
     excerpt: { type: 'string' },
   },
-  required: ['intro', 'sections', 'summary', 'excerpt'],
+  required: ['intro', 'sections', 'summaryHeading', 'summary', 'excerpt'],
   additionalProperties: false,
 };
 
@@ -29,7 +30,8 @@ const ARTICLE_FORMAT_NOTE = [
   '（返事の形式）',
   '- intro: 導入の文章',
   '- sections: 見出しをちょうど ' + SECTION_COUNT + ' つ。heading は見出し、body はその本文',
-  '- summary: まとめの文章（「まとめ」という見出しは付けない）',
+  '- summaryHeading: まとめの見出し。「まとめ：」で始め、記事の主張を短く入れる（例: まとめ：〇〇が悪いのではなく、△△の問題）',
+  '- summary: まとめの文章（見出しは summaryHeading に書き、ここには入れない）',
   '- excerpt: 検索結果に出る説明文（120 字前後）',
   '- 段落と段落の間は空行を入れる。箇条書きは行頭に「- 」を付ける',
   '- HTML のタグや Markdown の記号（# や **）は使わない',
@@ -114,7 +116,7 @@ function articleToHtml_(article) {
     parts.push('<h2>' + escapeHtml_(section.heading) + '</h2>');
     parts.push(textToHtml_(section.body));
   });
-  parts.push('<h2>まとめ</h2>');
+  parts.push('<h2>' + escapeHtml_(article.summaryHeading || 'まとめ') + '</h2>');
   parts.push(textToHtml_(article.summary));
   return parts.join('\n');
 }
@@ -151,6 +153,7 @@ function mockArticle_(title, keyword) {
       heading: '【テスト】見出し ' + n,
       body: '見出し ' + n + ' の本文です。\n\n- ポイント A\n- ポイント B',
     })),
+    summaryHeading: 'まとめ：【テスト】まとめの見出し',
     summary: '【テスト】「' + title + '」のまとめです。',
     excerpt: '【テスト】' + keyword + 'についての説明文です。',
   };

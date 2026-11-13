@@ -6,6 +6,10 @@
 
 ![構成図](architecture.png)
 
+| タイトル 5 案（テスト用の設定で実行） | 下書き保存後（作成済・タイトル・WordPress の URL） |
+|---|---|
+| ![タイトル案](docs/images/sheet-titles.png) | ![作成済](docs/images/sheet-created.png) |
+
 ## できること
 
 - キーワード（＋サブキーワード・補足メモ）から、記事タイトルを 5 案作る
