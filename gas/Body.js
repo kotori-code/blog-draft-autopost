@@ -74,11 +74,19 @@ function generateBodyForRow_(sheet, row) {
     cell('createdAt').setValue(new Date());
     cell('status').setValue(STATUS.CREATED);
 
-    // 下書きは保存できているので、字数オーバーはエラーにせず注意として知らせる
+    // 下書きは保存できているので、ここから先の問題はエラーにせず注意として知らせる
+    const notes = [];
     const length = Array.from(article.metaDescription).length;
     if (length > META_DESCRIPTION_MAX) {
-      cell('error').setValue('注意: 説明文が ' + length + ' 字です。' + META_DESCRIPTION_MAX + ' 字以内に直してから使ってください');
+      notes.push('注意: 説明文が ' + length + ' 字です。' + META_DESCRIPTION_MAX + ' 字以内に直してから使ってください');
     }
+    try {
+      exportArticle_(keyword, title, article, result.editUrl); // TEST_OUTPUT_SHEET_URL があれば本文と説明文を書き出す
+    } catch (err) {
+      console.error('[Body] ' + row + ' 行目の書き出し: ' + err.message);
+      notes.push('注意: 本文の書き出しに失敗しました（' + err.message + '）');
+    }
+    if (notes.length > 0) cell('error').setValue(notes.join('\n'));
   } catch (err) {
     console.error('[Body] ' + row + ' 行目: ' + err.message);
     cell('status').setValue(STATUS.ERROR);

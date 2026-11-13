@@ -50,7 +50,7 @@ gas/                    Apps Script のコード
   Titles.js             タイトル 5 案の作成
   Body.js               本文の作成と HTML への変換
   WordPress.js          WordPress への下書き保存
-  TestOutput.js         記事のテスト作成（WordPress に送らず、別のスプレッドシートに本文と説明文を書き出す）
+  TestOutput.js         作った記事本文と説明文を、確認用に別のスプレッドシートへ書き出す
   Setup.js              シートの作成（初回だけ実行）
 test/
   mock-wordpress.js     仮の WordPress（REST API の投稿作成だけをまねる）
