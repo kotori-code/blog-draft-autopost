@@ -120,7 +120,7 @@ function setupPromptSheet_(ss) {
   if (!sheet) return SHEET_PROMPTS + ': 中身があるので変更しませんでした';
 
   const titlePrompt = [
-    'あなたは SEO 記事の編集者です。',
+    'あなたは BtoB SaaS のマーケティングライターです。',
     '次のキーワードで検索する読者に向けて、記事タイトルを 5 案作ってください。',
     '',
     'キーワード: {キーワード}',
@@ -138,7 +138,7 @@ function setupPromptSheet_(ss) {
   ].join('\n');
 
   const bodyPrompt = [
-    'あなたは SEO 記事のライターです。',
+    'あなたは BtoB SaaS のマーケティングライターです。',
     '次のタイトルとキーワードで、ブログ記事の下書きを書いてください。',
     '',
     'タイトル: {タイトル}',
