@@ -35,7 +35,7 @@
 | Google スプレッドシート | 入力と管理の画面 |
 | Google Apps Script（V8） | チェックボックスで動く処理の本体（インストール型の編集トリガー） |
 | OpenAI API（Chat Completions・JSON スキーマ指定） | タイトル案と記事の作成 |
-| WordPress REST API（`POST /wp-json/wp/v2/posts`） | 下書きの保存。投稿者権限の専用ユーザーとアプリケーションパスワード（Basic 認証）で接続 |
+| WordPress REST API（`POST /wp-json/wp/v2/posts`） | 下書きの保存。寄稿者権限（下書きのみ作れる）の専用ユーザーとアプリケーションパスワード（Basic 認証）で接続 |
 
 API キーとパスワードはスクリプトプロパティに保存し、コードとシートには書きません。
 
@@ -57,6 +57,10 @@ test/
   send-draft-test.js    WordPress への送信テスト
 docs/setup.md           セットアップ手順
 docs/test-report.md     テスト報告書（仕組みのテストと、記事 5 本の品質テスト）
+docs/client/            お客様向けの納品資料（index.html から開く）
+  api-setup.html        ① API キー設定手順書
+  manual.html           ② 使い方マニュアル（画面写真つき）
+  troubleshooting.html  ③ トラブルシューティング
 proposal.md             提案書
 requirements.md         要件定義書
 wbs.md                  見積もり（WBS）

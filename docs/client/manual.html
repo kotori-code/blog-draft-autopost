@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>使い方マニュアル</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="cover">
+  <p class="kind">ブログ記事 下書き自動作成 ②</p>
+  <h1>使い方マニュアル</h1>
+  <p>キーワードを入れてから記事を公開するまでの最短手順</p>
+</header>
+<nav class="back"><a href="index.html">← 資料の一覧へ</a></nav>
+<main>
+
+<div class="card">
+  <p><strong>1 本の記事ができるまで（目安 5 分 ＋ 確認・手直し）</strong></p>
+  <ol>
+    <li>キーワードを入れる</li>
+    <li>「タイトル5案を作成」にチェック <span class="badge time">約 30 秒</span></li>
+    <li>使うタイトルの番号を選ぶ</li>
+    <li>「本文を作成」にチェック <span class="badge time">1〜2 分</span></li>
+    <li>WordPress で下書きを確認し、画像を設定して公開する</li>
+    <li>ステータスを「公開済」にする</li>
+  </ol>
+</div>
+
+<div class="card">
+  <p><strong>列の見出しの色</strong></p>
+  <p><span class="badge input">青</span> 担当者の方が入力・操作する列　<span class="badge auto">灰色</span> 自動で書き込まれる列（手で書き換えないでください）</p>
+</div>
+
+<h2><span class="num">1</span>記事を作る</h2>
+<p>「記事作成」シートを使います。1 つの行が 1 本の記事です。</p>
+
+<div class="step">
+  <h3><span class="label">STEP 1</span>キーワードを入れる</h3>
+  <p>空いている行の <strong>「キーワード」</strong> に、検索してほしい言葉を入れます。必要なら <strong>「サブキーワード」</strong>（一緒に入れたい言葉）と <strong>「補足メモ」</strong>（入れてほしい自社の話、読者の悩みなど）も入れます。</p>
+  <figure>
+    <img src="images/01-keyword.png" alt="キーワードとサブキーワードを入れた行">
+    <figcaption>例：キーワード「勤怠管理システム 比較 選び方」、サブキーワード「クラウド, 料金」</figcaption>
+  </figure>
+</div>
+
+<div class="step">
+  <h3><span class="label">STEP 2</span>「タイトル5案を作成」にチェックを入れる</h3>
+  <p>30 秒ほどで、<strong>「タイトル案」</strong> に 5 つの案が入ります。チェックは自動で外れます。</p>
+  <figure>
+    <img src="images/02-titles.png" alt="タイトル案に 5 つの案が入った行">
+    <figcaption>切り口の違う 5 案ができます。気に入らなければ、もう一度チェックを入れると作り直せます</figcaption>
+  </figure>
+</div>
+
+<div class="step">
+  <h3><span class="label">STEP 3</span>使うタイトルの番号を選ぶ</h3>
+  <p><strong>「採用する案（1〜5）」</strong> のセルの ▼ を押し、使う案の番号を選びます。</p>
+  <figure>
+    <img src="images/03-choose.png" alt="採用する案のセルで 1 から 5 を選ぶところ" style="max-width:420px">
+  </figure>
+</div>
+
+<div class="step">
+  <h3><span class="label">STEP 4</span>「本文を作成」にチェックを入れる</h3>
+  <p>AI が記事を書き、WordPress に <strong>下書き</strong> として保存します。<strong>1〜2 分かかります。</strong> その間ステータスは「作成中」のままですが、止まっていません。</p>
+  <p>終わると、ステータスが <strong>「作成済」</strong> になり、<strong>タイトル・WordPress URL（下書きの編集画面）・作成日・説明文</strong> が入ります。</p>
+  <figure>
+    <img src="images/04-created.png" alt="作成済になり、タイトル・WordPress URL・説明文が入った行">
+    <figcaption>「説明文（120 字以内）」は、検索結果に表示される文（メタディスクリプション）です</figcaption>
+  </figure>
+  <div class="warn">
+    <strong>「エラー内容」に何か出たら</strong>
+    「注意:」で始まる文は、下書きは保存できたうえでの注意です（説明文が長い、本文が短い など）。それ以外は保存できていないので、「③ トラブルシューティング」で文言を探してください。
+  </div>
+</div>
+
+<div class="step">
+  <h3><span class="label">STEP 5</span>WordPress で下書きを確認して公開する</h3>
+  <p>「WordPress URL」を押すと、WordPress の編集画面が開きます（ログインが必要です）。AI の下書きは <strong>手直しして仕上げるためのスタートライン</strong> です。次の点を確認してください。</p>
+  <div class="table-wrap"><table>
+    <tr><th>確認すること</th><th>理由</th></tr>
+    <tr><td>法律・制度・数字が正しいか</td><td>AI は間違えることがあります。特に労務の法律は、改正で変わることもあります</td></tr>
+    <tr><td>自社のサービス・事例・お客様の声を足す</td><td>御社ならではの内容は AI には書けません。記事の独自性が上がります</td></tr>
+    <tr><td>他のサイトの文章と似すぎていないか</td><td>気になる表現は、類似チェックツールで確かめてください</td></tr>
+    <tr><td>アイキャッチ画像を設定する</td><td>画像は自動では入りません</td></tr>
+    <tr><td>説明文を設定する</td><td>SEO 用のプラグインを使っている場合は、シートの「説明文」をコピーして、プラグインの説明文の欄に貼ります</td></tr>
+  </table></div>
+  <p>確認が終わったら、WordPress で <strong>公開</strong> を押します。</p>
+</div>
+
+<div class="step">
+  <h3><span class="label">STEP 6</span>ステータスを「公開済」にする</h3>
+  <p>「ステータス」のセルの ▼ を押し、<strong>「公開済」</strong> を選びます。<strong>「公開日」</strong> に今日の日付が自動で入ります。</p>
+  <figure>
+    <img src="images/05-publish.png" alt="ステータスの選択肢（未作成・タイトル案あり・作成中・作成済・エラー・公開済）" style="max-width:520px">
+    <figcaption>ステータスの中で、手で変えるのは「公開済」だけです</figcaption>
+  </figure>
+</div>
+
+<h2><span class="num">2</span>書き方を変えたいとき</h2>
+<p>文字数・読者・トーン・使わない表現・お手本の記事は、<strong>「共通設定」</strong> シートで変えられます。AI への指示文そのものは <strong>「個別設定」</strong> シートにあります。</p>
+
+<div class="step">
+  <h3><span class="label">1</span>「内容」の列を書き換える</h3>
+  <p>セルを <strong>ダブルクリック</strong> してから書き換えます（複数行の文章を貼り付けるときも、ダブルクリックしてから貼ります。そうしないと、行が分かれてしまいます）。</p>
+  <figure>
+    <img src="images/06-common.png" alt="共通設定シートの文字数・構成・読者・トーンなど">
+  </figure>
+</div>
+
+<div class="step">
+  <h3><span class="label">2</span>「反映する」にチェックを入れる</h3>
+  <p>表の下にある <strong>「反映する」</strong> にチェックを入れると、<strong>「最後に反映した日時」</strong> が更新され、次に作る記事から新しい内容が使われます。チェックを入れるまでは、前の内容のまま作られるので、書きかけの状態で記事が作られることはありません。</p>
+  <figure>
+    <img src="images/07-apply.png" alt="反映するのチェックボックスと最後に反映した日時">
+  </figure>
+</div>
+
+<h2><span class="num">3</span>知っておくと便利なこと</h2>
+<div class="table-wrap"><table>
+  <tr><th>こんなとき</th><th>やり方</th></tr>
+  <tr><td>作成済の記事をもう一度作りたい</td><td>同じ記事が 2 本できないよう、「作成済」「公開済」の行は作り直しません。作り直すときは、WordPress の前の下書きを削除してから、ステータスを「タイトル案あり」に戻して「本文を作成」にチェックを入れます</td></tr>
+  <tr><td>何本かまとめて作りたい</td><td>続けてチェックを入れてかまいません。1 本ずつ順番に作られます</td></tr>
+  <tr><td>費用</td><td>記事 1 本あたり約 7 円です（タイトル案の作成は 1 回 0.1 円未満）</td></tr>
+  <tr><td>キーワードを選ぶとき</td><td>すでにある記事とテーマが重なると、似た内容になりやすく、検索で自社の記事どうしが競合します。既存記事と重ならないキーワードを選んでください</td></tr>
+</table></div>
+
+</main>
+<footer>ブログ記事 下書き自動作成 ② 使い方マニュアル</footer>
+</body>
+</html>

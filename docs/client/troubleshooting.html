@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>トラブルシューティング</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="cover">
+  <p class="kind">ブログ記事 下書き自動作成 ③</p>
+  <h1>トラブルシューティング</h1>
+  <p>よくあるエラーと対処法</p>
+</header>
+<nav class="back"><a href="index.html">← 資料の一覧へ</a></nav>
+<main>
+
+<div class="card toc">
+  <p><strong>探し方</strong></p>
+  <p>「記事作成」シートの <strong>「エラー内容」</strong> の列に出ている文言を、<code>Ctrl + F</code> でこのページから探してください。</p>
+  <ol>
+    <li><a href="#nothing">画面の動きがおかしいとき</a></li>
+    <li><a href="#sheet">シートの入力に関するエラー</a></li>
+    <li><a href="#openai">AI（OpenAI）に関するエラー</a></li>
+    <li><a href="#wordpress">WordPress に関するエラー</a></li>
+    <li><a href="#notice">「注意:」で始まる文</a></li>
+    <li><a href="#settings">設定に関すること</a></li>
+    <li><a href="#contact">それでも解決しないとき</a></li>
+  </ol>
+</div>
+
+<div class="note">
+  <strong>直したあとは</strong>
+  エラーになった行は、原因を直してから、もう一度チェックを入れれば作り直せます。チェックは自動で外れています。
+</div>
+
+<h2 id="nothing"><span class="num">1</span>画面の動きがおかしいとき</h2>
+<div class="table-wrap"><table>
+  <tr><th>症状</th><th>原因</th><th>対処法</th></tr>
+  <tr>
+    <td class="msg">ステータスが「作成中」のまま変わらない</td>
+    <td>本文の作成には 1〜2 分かかります</td>
+    <td>2〜3 分待ってください。<strong>10 分たっても「作成中」のまま</strong> なら、途中で止まっています。ステータスを「タイトル案あり」に戻し、もう一度「本文を作成」にチェックを入れてください</td>
+  </tr>
+  <tr>
+    <td class="msg">チェックを入れても何も起きない（チェックが付いたまま）</td>
+    <td>チェックで動く仕組み（トリガー）が登録されていない</td>
+    <td>管理者の方が、拡張機能 → Apps Script を開き、上の関数の選択欄で <code>setupTriggers</code> を選んで「実行」を押してください。許可を求められたら許可します</td>
+  </tr>
+  <tr>
+    <td class="msg">右下に「ほかの処理が終わらないため、実行できませんでした」</td>
+    <td>前の記事を作っている途中に、たくさんチェックを入れた</td>
+    <td>前の記事が「作成済」になってから、もう一度チェックを入れてください</td>
+  </tr>
+  <tr>
+    <td class="msg">右下に「○ 行目は「作成済」なので、本文は作り直しません」</td>
+    <td>同じ記事が 2 本できないようにしているため</td>
+    <td>作り直すときは、WordPress の前の下書きを削除してから、ステータスを「タイトル案あり」に戻してチェックを入れてください</td>
+  </tr>
+  <tr>
+    <td class="msg">灰色の列を書き換えようとすると警告が出る</td>
+    <td>自動で書き込まれる列を守るための警告です</td>
+    <td>「キャンセル」を押してください。ステータスの「公開済」以外は、手で書き換えないでください</td>
+  </tr>
+  <tr>
+    <td class="msg">「公開済」にしても公開日が入らない</td>
+    <td>すでに公開日が入っている、またはステータスを文字で打ち込んだ</td>
+    <td>公開日が空の状態で、ステータスの ▼ から「公開済」を選び直してください</td>
+  </tr>
+  <tr>
+    <td class="msg">WordPress URL を開くとログイン画面になる</td>
+    <td>下書きの編集画面なので、ログインが必要です</td>
+    <td>WordPress にログインすると、下書きが開きます</td>
+  </tr>
+</table></div>
+
+<h2 id="sheet"><span class="num">2</span>シートの入力に関するエラー</h2>
+<div class="table-wrap"><table>
+  <tr><th>エラー内容の文言</th><th>原因</th><th>対処法</th></tr>
+  <tr>
+    <td class="msg">キーワードが空です</td>
+    <td>「キーワード」の列が空</td>
+    <td>キーワードを入れてから、もう一度チェックを入れてください</td>
+  </tr>
+  <tr>
+    <td class="msg">「採用する案（1〜5）」で、使うタイトルの番号を選んでください</td>
+    <td>番号を選ばずに「本文を作成」を押した</td>
+    <td>「採用する案」の ▼ で番号を選んでから、もう一度チェックを入れてください</td>
+  </tr>
+  <tr>
+    <td class="msg">タイトル案の ○ 番が見つかりません</td>
+    <td>タイトル案がまだ無い、または手で消した</td>
+    <td>先に「タイトル5案を作成」にチェックを入れてください</td>
+  </tr>
+</table></div>
+
+<h2 id="openai"><span class="num">3</span>AI（OpenAI）に関するエラー</h2>
+<div class="table-wrap"><table>
+  <tr><th>エラー内容の文言</th><th>原因</th><th>対処法</th></tr>
+  <tr>
+    <td class="msg">OpenAI の API キーが設定されていません</td>
+    <td>スクリプトプロパティに <code>OPENAI_API_KEY</code> が無い</td>
+    <td>「① API キー設定手順書」の手順 3 で登録してください</td>
+  </tr>
+  <tr>
+    <td class="msg">OpenAI の API キーが正しくありません（401）</td>
+    <td>キーの貼り間違い、またはキーが削除された</td>
+    <td>OpenAI の画面でキーを作り直し、スクリプトプロパティの値を書き換えてください（前後に空白が入っていないかも確認）</td>
+  </tr>
+  <tr>
+    <td class="msg">OpenAI の利用上限に達したか、短時間に送りすぎました（429）</td>
+    <td>クレジットの残高が無い、または短い時間にたくさん作った</td>
+    <td>OpenAI の請求（Billing）画面で残高を確認し、少なければクレジットを購入してください。残高があるなら、数分待ってからやり直してください</td>
+  </tr>
+  <tr>
+    <td class="msg">OpenAI 側で一時的な障害が起きています（500 番台）</td>
+    <td>OpenAI のサーバーの不調</td>
+    <td>しばらく（30 分〜数時間）待ってから、やり直してください</td>
+  </tr>
+  <tr>
+    <td class="msg">OpenAI への依頼に失敗しました（○○）。モデル名などの設定を確認してください</td>
+    <td>モデル名（<code>OPENAI_MODEL</code>）の書き間違い、または提供が終わったモデル</td>
+    <td>スクリプトプロパティの <code>OPENAI_MODEL</code> を確認してください。直らない場合は開発担当にご連絡ください</td>
+  </tr>
+  <tr>
+    <td class="msg">タイトル案が ○ 案しか返ってきませんでした</td>
+    <td>AI の返事がたまたま少なかった</td>
+    <td>もう一度「タイトル5案を作成」にチェックを入れてください</td>
+  </tr>
+  <tr>
+    <td class="msg">見出しが ○ つで返ってきました（3 つの予定）</td>
+    <td>AI の返事がたまたま決まった形でなかった</td>
+    <td>もう一度「本文を作成」にチェックを入れてください（WordPress には保存されていません）</td>
+  </tr>
+  <tr>
+    <td class="msg">AI が作成を断りました</td>
+    <td>キーワードや補足メモに、AI が書けないと判断した内容が含まれる</td>
+    <td>キーワード・補足メモの表現を変えてから、やり直してください</td>
+  </tr>
+</table></div>
+
+<h2 id="wordpress"><span class="num">4</span>WordPress に関するエラー</h2>
+<p>このエラーのときは、AI の記事はできていますが WordPress に保存できていません。直してから「本文を作成」にチェックを入れると、記事を作り直して保存します（1 本約 7 円がもう一度かかります）。</p>
+<div class="table-wrap"><table>
+  <tr><th>エラー内容の文言</th><th>原因</th><th>対処法</th></tr>
+  <tr>
+    <td class="msg">WordPress の接続設定がありません</td>
+    <td>スクリプトプロパティに <code>WP_BASE_URL</code>・<code>WP_USERNAME</code>・<code>WP_APP_PASSWORD</code> のどれかが無い</td>
+    <td>文言に出ている名前を「① API キー設定手順書」の手順 3 で登録してください</td>
+  </tr>
+  <tr>
+    <td class="msg">WordPress に接続できませんでした</td>
+    <td>サイトの URL の書き間違い、またはサイトが止まっている</td>
+    <td><code>WP_BASE_URL</code> を確認してください（<code>https://</code> から始まり、最後に <code>/</code> を付けない）。ブラウザでサイトが開けるかも確認します</td>
+  </tr>
+  <tr>
+    <td class="msg">WordPress のユーザー名かアプリケーションパスワードが違います（401）</td>
+    <td>貼り間違い、またはアプリケーションパスワードが取り消された</td>
+    <td>WordPress で専用ユーザーのアプリケーションパスワードを作り直し、<code>WP_APP_PASSWORD</code> を書き換えてください。<code>WP_USERNAME</code> がメールアドレスではなくユーザー名になっているかも確認します</td>
+  </tr>
+  <tr>
+    <td class="msg">専用ユーザーに記事を作る権限が無いか、セキュリティプラグインに止められました（403）</td>
+    <td>専用ユーザーの権限グループが「購読者」など、またはセキュリティプラグインが外部からの保存を止めている</td>
+    <td>権限グループを「寄稿者」（または「投稿者」）にしてください。それでも直らない場合は、セキュリティプラグインの設定（REST API の制限）を、サイトの管理会社か開発担当にご確認ください</td>
+  </tr>
+  <tr>
+    <td class="msg">WP_BASE_URL が違うか、WordPress の REST API が使えない設定になっています（404）</td>
+    <td>URL に余分な部分（<code>/wp-admin</code> など）が付いている、または REST API が止められている</td>
+    <td><code>WP_BASE_URL</code> をサイトのトップの URL にしてください。直らない場合は、サイトの管理会社か開発担当にご確認ください</td>
+  </tr>
+  <tr>
+    <td class="msg">WordPress のサーバーで一時的なエラーが起きています（500 番台）</td>
+    <td>サーバーの不調</td>
+    <td>しばらく待ってから、やり直してください</td>
+  </tr>
+  <tr>
+    <td class="msg">WordPress から記事番号が返ってきませんでした</td>
+    <td>サイト側のプラグインなどが、通常と違う返事をした</td>
+    <td>WordPress の投稿一覧に下書きができていないか確認してください。できていなければやり直し、続く場合は開発担当にご連絡ください</td>
+  </tr>
+</table></div>
+
+<h2 id="notice"><span class="num">5</span>「注意:」で始まる文</h2>
+<p>下書きは保存できています。内容を確認して、必要なら WordPress で手直ししてください。</p>
+<div class="table-wrap"><table>
+  <tr><th>エラー内容の文言</th><th>意味</th><th>対処法</th></tr>
+  <tr>
+    <td class="msg">注意: 説明文が ○ 字です。120 字以内に直してから使ってください</td>
+    <td>説明文（メタディスクリプション）が長い</td>
+    <td>説明文を 120 字以内に縮めてから、WordPress（または SEO プラグイン）に設定してください</td>
+  </tr>
+  <tr>
+    <td class="msg">注意: 本文が ○ 字（見出しを除く）で、短めです</td>
+    <td>本文が 1,800 字に届いていない</td>
+    <td>内容が足りていれば、そのままでかまいません。足りなければ手で書き足すか、WordPress の下書きを削除して作り直してください</td>
+  </tr>
+</table></div>
+
+<h2 id="settings"><span class="num">6</span>設定に関すること</h2>
+<div class="table-wrap"><table>
+  <tr><th>症状・文言</th><th>原因</th><th>対処法</th></tr>
+  <tr>
+    <td class="msg">共通設定を書き換えたのに、記事に反映されない</td>
+    <td>「反映する」にチェックを入れていない</td>
+    <td>表の下の「反映する」にチェックを入れ、「最後に反映した日時」が更新されたか確認してください</td>
+  </tr>
+  <tr>
+    <td class="msg">貼り付けた文章が、下の行に分かれてしまった</td>
+    <td>セルを選んだだけで貼り付けた</td>
+    <td>Ctrl + Z で元に戻し、セルを <strong>ダブルクリック</strong> してから貼り付けてください</td>
+  </tr>
+  <tr>
+    <td class="msg">「個別設定」に「○○」の指示文がありません</td>
+    <td>「個別設定」の A 列の「タイトル生成」「本文生成」の文字を変えた、または消した</td>
+    <td>A 列を「タイトル生成」「本文生成」に戻して、「反映する」にチェックを入れてください</td>
+  </tr>
+  <tr>
+    <td class="msg">○○ に設定がありません</td>
+    <td>「共通設定」や「個別設定」の 2 行目より下が空になっている</td>
+    <td>消してしまった場合は、Google スプレッドシートの <strong>ファイル → 変更履歴</strong> から前の版に戻せます</td>
+  </tr>
+</table></div>
+
+<h2 id="contact"><span class="num">7</span>それでも解決しないとき</h2>
+<p>開発担当にご連絡ください。次の 3 つを教えていただくと、早く調べられます。</p>
+<ol>
+  <li>何行目の記事か（キーワード）</li>
+  <li>「エラー内容」の文言（そのままコピー）</li>
+  <li>だいたいの日時</li>
+</ol>
+<div class="note">
+  <strong>API キーやパスワードは送らないでください</strong>
+  調べるときに、お預かりする必要はありません。
+</div>
+
+</main>
+<footer>ブログ記事 下書き自動作成 ③ トラブルシューティング</footer>
+</body>
+</html>

@@ -1,0 +1,131 @@
+:root {
+  --primary: #2271B1;
+  --primary-dark: #135E96;
+  --auto: #6B6B6B;
+  --base: #F6F7F9;
+  --surface: #FFFFFF;
+  --ink: #2B2B2B;
+  --muted: #6B6B6B;
+  --line: #DCDFE4;
+  --danger: #D63638;
+  --danger-bg: #FCEDED;
+  --warn-bg: #FFF8E5;
+  --ok: #0F7B3E;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--base);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+}
+main { max-width: 860px; margin: 0 auto; padding: 0 16px 64px; }
+header.cover {
+  background: var(--primary);
+  color: #fff;
+  padding: 32px 20px 28px;
+  text-align: center;
+}
+header.cover .kind { margin: 0 0 4px; font-size: 14px; opacity: .85; letter-spacing: .08em; }
+header.cover h1 { margin: 0; font-size: 26px; line-height: 1.4; }
+header.cover p { margin: 8px 0 0; font-size: 15px; opacity: .92; }
+nav.back { max-width: 860px; margin: 12px auto 0; padding: 0 16px; font-size: 14px; }
+h2 {
+  font-size: 21px;
+  margin: 44px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 3px solid var(--primary);
+  scroll-margin-top: 12px;
+}
+h2 .num {
+  display: inline-block; min-width: 1.7em; height: 1.7em; line-height: 1.7em;
+  margin-right: 8px; border-radius: 50%;
+  background: var(--primary); color: #fff; text-align: center; font-size: 15px;
+}
+h3 { font-size: 17px; margin: 28px 0 8px; }
+p { margin: 8px 0; }
+a { color: var(--primary-dark); }
+code {
+  font-family: "Consolas", "Menlo", monospace;
+  background: #EEF1F5;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: .92em;
+  word-break: break-all;
+}
+.card {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 12px 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+.toc ol { margin: 0; padding-left: 1.4em; }
+.toc li { margin: 4px 0; }
+ol.steps { padding-left: 1.4em; }
+ol.steps > li { margin: 8px 0; }
+.note, .warn, .danger {
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin: 12px 0;
+  font-size: 15px;
+}
+.note { background: #EAF2FA; border-left: 4px solid var(--primary); }
+.warn { background: var(--warn-bg); border-left: 4px solid #DBA617; }
+.danger { background: var(--danger-bg); border-left: 4px solid var(--danger); }
+.note strong, .warn strong, .danger strong { display: block; margin-bottom: 2px; }
+figure { margin: 14px 0 20px; }
+figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+figcaption { font-size: 14px; color: var(--muted); margin-top: 6px; }
+.table-wrap { overflow-x: auto; margin: 12px 0; }
+table { border-collapse: collapse; width: 100%; background: var(--surface); font-size: 15px; }
+th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+th { background: #EEF1F5; white-space: nowrap; }
+td.msg { font-weight: bold; }
+.badge {
+  display: inline-block; padding: 0 8px; border-radius: 999px;
+  font-size: 13px; color: #fff; vertical-align: 1px;
+}
+.badge.input { background: var(--primary); }
+.badge.auto { background: var(--auto); }
+.badge.time { background: var(--ok); }
+.step {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 6px 18px 12px;
+  margin: 18px 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+.step h3 { margin-top: 14px; }
+.step h3 .label {
+  display: inline-block; margin-right: 8px; padding: 0 10px; border-radius: 6px;
+  background: var(--primary); color: #fff; font-size: 14px;
+}
+.docs { display: grid; gap: 14px; margin: 24px 0; }
+.docs a.doc {
+  display: block; text-decoration: none; color: var(--ink);
+  background: var(--surface); border-radius: 12px; padding: 16px 18px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08); border-left: 6px solid var(--primary);
+}
+.docs a.doc:hover { box-shadow: 0 2px 8px rgba(0,0,0,.14); }
+.docs .doc .t { font-size: 18px; font-weight: bold; color: var(--primary-dark); }
+.docs .doc .d { font-size: 15px; color: var(--muted); }
+footer { max-width: 860px; margin: 0 auto; padding: 0 16px 40px; font-size: 13px; color: var(--muted); }
+@media print {
+  body { background: #fff; font-size: 12pt; }
+  header.cover { background: #fff; color: var(--ink); border-bottom: 3px solid var(--primary); }
+  nav.back { display: none; }
+  .card, .step { box-shadow: none; border: 1px solid var(--line); }
+  h2 { break-after: avoid; }
+  figure, .step, tr { break-inside: avoid; }
+}

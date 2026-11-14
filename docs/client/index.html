@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ブログ記事 下書き自動作成 納品資料</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="cover">
+  <p class="kind">納品資料</p>
+  <h1>ブログ記事 下書き自動作成</h1>
+  <p>スプレッドシートにキーワードを入れると、AI が記事の下書きを作り、WordPress に保存します</p>
+</header>
+<main>
+  <div class="docs">
+    <a class="doc" href="api-setup.html">
+      <div class="t">① API キー設定手順書</div>
+      <div class="d">最初に 1 回だけ行う設定です。OpenAI の API キーと WordPress のアプリケーションパスワードを作り、仕組みに登録します（約 20 分・管理者の方向け）</div>
+    </a>
+    <a class="doc" href="manual.html">
+      <div class="t">② 使い方マニュアル</div>
+      <div class="d">毎日の使い方です。キーワードを入れてから記事を公開するまでを、画面の写真つきで最短手順にまとめました（担当者の方向け）</div>
+    </a>
+    <a class="doc" href="troubleshooting.html">
+      <div class="t">③ トラブルシューティング</div>
+      <div class="d">「エラー内容」の列に出る文言ごとに、原因と直し方をまとめました。困ったときに開いてください</div>
+    </a>
+  </div>
+
+  <div class="card">
+    <p><strong>はじめて使うときの順番</strong></p>
+    <ol>
+      <li>管理者の方が「① API キー設定手順書」で設定する</li>
+      <li>担当者の方が「② 使い方マニュアル」を見ながら 1 本作ってみる</li>
+      <li>うまくいかないときは「③ トラブルシューティング」を見る</li>
+    </ol>
+  </div>
+
+  <div class="note">
+    <strong>この仕組みが自動でしないこと</strong>
+    記事の公開・画像の設定は行いません。AI の誤りがそのまま公開されないよう、下書きを担当者の方が確認してから公開してください。
+  </div>
+</main>
+<footer>この資料はブラウザで開いて読むか、印刷（Ctrl + P）して使えます。</footer>
+</body>
+</html>

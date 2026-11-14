@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API キー設定手順書</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="cover">
+  <p class="kind">ブログ記事 下書き自動作成 ①</p>
+  <h1>API キー設定手順書</h1>
+  <p>最初に 1 回だけ行う設定です（約 20 分・管理者の方向け）</p>
+</header>
+<nav class="back"><a href="index.html">← 資料の一覧へ</a></nav>
+<main>
+
+<div class="card toc">
+  <p><strong>この手順書でやること</strong></p>
+  <ol>
+    <li><a href="#openai">OpenAI の API キーを作る</a>（AI に記事を書いてもらうための鍵）</li>
+    <li><a href="#wordpress">WordPress に記事保存用のユーザーとアプリケーションパスワードを作る</a>（下書きを保存するための鍵）</li>
+    <li><a href="#properties">2 つの鍵を仕組みに登録する</a></li>
+    <li><a href="#check">動作を確認する</a></li>
+    <li><a href="#safety">鍵を安全に扱うために</a></li>
+  </ol>
+</div>
+
+<div class="danger">
+  <strong>API キーとパスワードは、お金や記事の保存に使える「鍵」です</strong>
+  メール・チャット・スプレッドシートのセルには書かないでください。この手順書の「3」で登録する場所（スクリプトプロパティ）にだけ入れます。
+</div>
+
+<div class="note">
+  <strong>画面の表記について</strong>
+  OpenAI や WordPress の画面は、提供元の更新でボタン名や配置が少し変わることがあります。見つからない場合は、近い名前のボタンを探してください。
+</div>
+
+<h2 id="openai"><span class="num">1</span>OpenAI の API キーを作る</h2>
+<p>記事の文章は OpenAI（ChatGPT を提供している会社）の AI が書きます。ChatGPT の月額プランとは別の契約で、使った分だけ支払う前払い制です。</p>
+
+<h3>1-1. アカウントを作る</h3>
+<ol class="steps">
+  <li>ブラウザで <code>https://platform.openai.com</code> を開き、御社のメールアドレスでアカウントを作る（またはログインする）</li>
+  <li>電話番号の確認（SMS）を求められたら、画面の案内に沿って進める</li>
+</ol>
+
+<h3>1-2. クレジットを購入する</h3>
+<ol class="steps">
+  <li>画面の設定から <strong>請求（Billing）</strong> の画面を開き、御社のクレジットカードを登録する</li>
+  <li>クレジットを購入する。<strong>最低 5 ドル</strong> から買えます（最初の金額が 10 ドルになっている場合は変更できます）</li>
+  <li><strong>自動チャージ（auto recharge）はオフ</strong> にする</li>
+</ol>
+<div class="note">
+  <strong>費用の目安</strong>
+  記事 1 本あたり約 7 円、月 13 本で約 100 円です（2026 年 11 月時点の料金表からの試算）。5 ドル（約 750 円）で半年分ほどになります。購入したクレジットは 1 年で失効し、原則として返金されません。
+</div>
+
+<h3>1-3. API キーを作る</h3>
+<ol class="steps">
+  <li><code>https://platform.openai.com/api-keys</code> を開く</li>
+  <li><strong>「Create new secret key」</strong> を押す</li>
+  <li>名前（Name）に <code>blog-autopost</code> と入れ、ほかの項目はそのままで作成する</li>
+  <li><code>sk-</code> で始まる長い文字列（API キー）が表示されるので、<strong>すぐにコピー</strong> して、手順 3 まで手元に控えておく</li>
+</ol>
+<div class="warn">
+  <strong>API キーは 1 回しか表示されません</strong>
+  コピーする前に画面を閉じてしまったら、そのキーを削除して、もう一度作ってください。
+</div>
+
+<h2 id="wordpress"><span class="num">2</span>WordPress に記事保存用のユーザーを作る</h2>
+<p>安全のため、管理者のアカウントは使いません。<strong>下書きの保存だけができる専用のユーザー</strong> を作り、そのユーザーの「アプリケーションパスワード」で接続します。万一パスワードが漏れても、サイトの設定や公開済みの記事は変更されません。</p>
+
+<h3>2-1. 専用ユーザーを作る</h3>
+<ol class="steps">
+  <li>WordPress の管理画面に、管理者でログインする</li>
+  <li>左のメニューの <strong>ユーザー → 新規ユーザーを追加</strong> を開く</li>
+  <li>次のように入力して、ユーザーを追加する
+    <div class="table-wrap"><table>
+      <tr><th>項目</th><th>入れるもの</th></tr>
+      <tr><td>ユーザー名</td><td><code>blog-autopost</code> など（あとで使うので控えておく）</td></tr>
+      <tr><td>メール</td><td>管理者が受け取れるアドレス</td></tr>
+      <tr><td>権限グループ</td><td><strong>寄稿者</strong>（下書きは作れるが、公開はできない権限）</td></tr>
+    </table></div>
+  </li>
+</ol>
+
+<h3>2-2. アプリケーションパスワードを作る</h3>
+<ol class="steps">
+  <li><strong>ユーザー → ユーザー一覧</strong> から、いま作ったユーザーを開く</li>
+  <li>画面の下のほうにある <strong>「アプリケーションパスワード」</strong> の欄で、名前に <code>blog-autopost</code> と入れる</li>
+  <li><strong>「新しいアプリケーションパスワードを追加」</strong> を押す</li>
+  <li>4 文字ずつ空白で区切られた 24 文字のパスワードが表示されるので、<strong>すぐにコピー</strong> する（空白は含めたままで大丈夫です）</li>
+</ol>
+<div class="warn">
+  <strong>「アプリケーションパスワード」の欄が見つからないとき</strong>
+  サイトが https で動いていない、またはセキュリティ用のプラグインがこの機能を止めている可能性があります。サイトの管理会社か、開発担当にご連絡ください。
+</div>
+
+<h2 id="properties"><span class="num">3</span>2 つの鍵を仕組みに登録する</h2>
+<ol class="steps">
+  <li>記事作成用のスプレッドシートを開き、上のメニューの <strong>拡張機能 → Apps Script</strong> を開く</li>
+  <li>左の <strong>⚙（プロジェクトの設定）</strong> を押し、いちばん下の <strong>「スクリプト プロパティ」</strong> まで進む</li>
+  <li><strong>「スクリプト プロパティを編集」</strong> を押し、<strong>「スクリプト プロパティを追加」</strong> で次の 5 つを入れる
+    <div class="table-wrap"><table>
+      <tr><th>プロパティ（左の欄）</th><th>値（右の欄）</th></tr>
+      <tr><td><code>OPENAI_API_KEY</code></td><td>手順 1-3 でコピーした API キー（<code>sk-</code>…）</td></tr>
+      <tr><td><code>OPENAI_MODEL</code></td><td><code>gpt-6.1-sol</code></td></tr>
+      <tr><td><code>WP_BASE_URL</code></td><td>ブログのサイトの URL（例: <code>https://example-saas.co.jp</code>。最後の <code>/</code> は不要）</td></tr>
+      <tr><td><code>WP_USERNAME</code></td><td>手順 2-1 のユーザー名</td></tr>
+      <tr><td><code>WP_APP_PASSWORD</code></td><td>手順 2-2 でコピーしたアプリケーションパスワード</td></tr>
+    </table></div>
+  </li>
+  <li>一覧に <code>OPENAI_MOCK</code>・<code>WP_MOCK</code>・<code>TEST_OUTPUT_SHEET_URL</code> があれば、<strong>削除</strong> する（開発中のテスト用の設定です）</li>
+  <li><strong>「スクリプト プロパティを保存」</strong> を押す</li>
+</ol>
+<div class="note">
+  <strong>大文字・小文字と空白に注意</strong>
+  プロパティの名前は表のとおりに入れてください。値の前後に空白が入らないように貼り付けます。
+</div>
+
+<h2 id="check"><span class="num">4</span>動作を確認する</h2>
+<ol class="steps">
+  <li>スプレッドシートの「記事作成」シートで、空いている行にキーワードを 1 つ入れる</li>
+  <li>「② 使い方マニュアル」の STEP 2〜4 のとおり、タイトル案を作り、番号を選び、「本文を作成」にチェックを入れる</li>
+  <li>1〜2 分後、ステータスが <strong>「作成済」</strong> になり、「WordPress URL」に URL が入れば成功です</li>
+  <li>WordPress の管理画面の <strong>投稿 → 投稿一覧</strong> に、その記事が <strong>「下書き」</strong> で 1 本あることを確認する</li>
+</ol>
+<p>ステータスが「エラー」になった場合は、「エラー内容」の列の文言を「③ トラブルシューティング」で探してください。確認に使った下書きは、削除してかまいません。</p>
+
+<h2 id="safety"><span class="num">5</span>鍵を安全に扱うために</h2>
+<div class="table-wrap"><table>
+  <tr><th>こんなとき</th><th>やること</th></tr>
+  <tr><td>鍵が漏れたかもしれない</td><td>
+    OpenAI：<code>https://platform.openai.com/api-keys</code> でそのキーを削除し、作り直す<br>
+    WordPress：専用ユーザーのプロフィールの「アプリケーションパスワード」で取り消し、作り直す<br>
+    作り直したら、手順 3 のスクリプトプロパティの値を書き換える
+  </td></tr>
+  <tr><td>担当者が替わる・退職する</td><td>念のため 2 つの鍵を作り直し、スクリプトプロパティを書き換える</td></tr>
+  <tr><td>使いすぎが心配</td><td>OpenAI の請求画面で、使った金額と残高を確認できる。自動チャージをオフにしていれば、残高以上には使われない</td></tr>
+  <tr><td>スプレッドシートを共有する</td><td>スクリプトプロパティは、スプレッドシートの閲覧者・編集者からは見えない。Apps Script を開ける人（編集者）は見られるため、編集者は必要な人だけにする</td></tr>
+</table></div>
+
+</main>
+<footer>ブログ記事 下書き自動作成 ① API キー設定手順書</footer>
+</body>
+</html>
