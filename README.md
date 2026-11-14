@@ -56,6 +56,7 @@ test/
   mock-wordpress.js     仮の WordPress（REST API の投稿作成だけをまねる）
   send-draft-test.js    WordPress への送信テスト
 docs/setup.md           セットアップ手順
+docs/technical.md       技術ドキュメント（API 仕様・データ設計・外部サービスとの連携図。開発者向けの引き継ぎ）
 docs/test-report.md     テスト報告書（仕組みのテストと、記事 5 本の品質テスト）
 docs/client/            お客様向けの納品資料（index.html から開く）
   api-setup.html        ① API キー設定手順書
