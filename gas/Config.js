@@ -67,7 +67,8 @@ const PROMPT_KEYS = {
 
 // OpenAI
 const OPENAI_CHAT_ENDPOINT = 'https://api.openai.com/v1/chat/completions';
-const DEFAULT_OPENAI_MODEL = 'gpt-4.1-mini'; // スクリプトプロパティ OPENAI_MODEL で変更できる
+// テストで gpt-4.1-mini と比べ、字数・指示の守り方が十分だったモデル（1 本 約 7 円の試算）
+const DEFAULT_OPENAI_MODEL = 'gpt-6.1-sol'; // スクリプトプロパティ OPENAI_MODEL で変更できる
 const TITLE_COUNT = 5;
 const SECTION_COUNT = 3; // 見出し（H2）の数
 const META_DESCRIPTION_MAX = 120; // 説明文（メタディスクリプション）の上限の字数

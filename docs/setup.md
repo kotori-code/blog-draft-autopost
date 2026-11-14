@@ -24,7 +24,7 @@ Apps Script の左の **⚙ プロジェクトの設定** の一番下「スク�
 | プロパティ | 値 | 必須 |
 |---|---|---|
 | `OPENAI_API_KEY` | OpenAI の API キー | 本番では必須 |
-| `OPENAI_MODEL` | 使うモデル名（省略すると `gpt-4.1-mini`） | 任意 |
+| `OPENAI_MODEL` | 使うモデル名（省略すると `gpt-6.1-sol`） | 任意 |
 | `OPENAI_MOCK` | `true` にすると OpenAI を呼ばず、テスト用のタイトル・記事を返す | 任意（API キーが無いときの動作確認用） |
 | `WP_BASE_URL` | WordPress サイトの URL（例: `https://example.com`） | 本番では必須 |
 | `WP_USERNAME` | 記事保存用の専用ユーザーのユーザー名 | 本番では必須 |
