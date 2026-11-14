@@ -56,6 +56,7 @@ test/
   mock-wordpress.js     仮の WordPress（REST API の投稿作成だけをまねる）
   send-draft-test.js    WordPress への送信テスト
 docs/setup.md           セットアップ手順
+docs/test-report.md     テスト報告書（仕組みのテストと、記事 5 本の品質テスト）
 proposal.md             提案書
 requirements.md         要件定義書
 wbs.md                  見積もり（WBS）
@@ -90,6 +91,10 @@ Apps Script は Google のサーバーで動くため、手元の PC の WordPre
 2. **シートの動き**: スクリプトプロパティ `OPENAI_MOCK` と `WP_MOCK` を `true` にすると、OpenAI と WordPress を呼ばずにテスト用の結果を返すので、API キーや WordPress が無くてもシート上の流れを最後まで確かめられる
 
 本物の WordPress での確認（専用ユーザーで下書きを 1 本保存する）は、納品先のサイトがあるときに着手前に行う想定です。
+
+## テストの結果
+
+仕組みのテストに加え、本物の AI で記事を 5 本作って品質を確かめました。安いモデル（gpt-4.1-mini）では字数不足や理想記事との重複が直らず、gpt-6.1-sol に変えると要件（2,000〜3,000 字・トーン・独自性・説明文 120 字以内）を満たしました。詳しくは [docs/test-report.md](docs/test-report.md) を参照してください。
 
 ## セットアップ
 
